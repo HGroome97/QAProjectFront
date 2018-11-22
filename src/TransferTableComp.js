@@ -25,16 +25,17 @@ export default class TransferTableComp extends Component {
       };
       playerPrice = response.data.price;
       console.log(updatedPlayer);
-      axios.post("http://localhost:8081/TraineeApp/api/player/updatePlayer", updatedPlayer).then((response) => {
+      axios.put("http://localhost:8081/TraineeApp/api/player/updatePlayer", updatedPlayer).then((response) => {
         console.log(response.data);
         axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
-          console.log(response.data);
+          console.log(response.data[0]);
           var updatedGameInfo = {
-            id: response.data[1].gameId,
-            saveName: response.data[1].saveName,
-            money: response.data[1].money-playerPrice
+            gameId: response.data[0].gameId,
+            saveName: response.data[0].saveName,
+            money: response.data[0].money-playerPrice
           }
-          axios.post("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedPlayer).then((response) => {
+          console.log(updatedGameInfo);
+          axios.put("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
             console.log(response.data);
             window.location.reload();
           });
