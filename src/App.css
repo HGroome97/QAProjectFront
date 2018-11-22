@@ -1,0 +1,163 @@
+.App {
+  text-align: center;
+  width: 95%;
+  margin: 15px auto;
+  //background-color: green;
+}
+
+.container-drag {
+  text-align: center;
+  //background-color: green;
+}
+
+.formation-container{
+  position: absolute;
+  width: 150px;
+  height: 80%;
+  right: 0;
+  top: 10;
+  background-color: #EEEEEE;
+  border-right: 1px dotted;
+}
+
+.SquadList {
+  overflow-y: scroll;
+  position: absolute;
+  width: 150px;
+  height: 80%;
+  left: 0;
+  top: 10;
+  background-color: #EEEEEE;
+  border-right: 1px dotted;
+}
+
+#saveLoadOptions{
+  position:absolute;
+  top: 75%;
+}
+
+.header {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  background-color: #E0E0E0;
+  width:100%;
+}
+
+.task-header {
+  display: inline-block;
+  background-color: skyblue;
+  width:100%;
+}
+
+.player{
+  width: 125px;
+  height: 100px;
+}
+
+#player1 {
+  position: absolute;
+  left: 44%;
+  top: 80%;
+  background-color: #9E9E9E;
+  border-left: 1px dotted;
+}
+
+#player2 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player3 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player4 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player5 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player6 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player7 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player8 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player9 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player10 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+#player11 {
+  position: absolute;
+  left: 50%;
+  top: 100;
+  background-color: #EEEEEE;
+  border-left: 1px dotted;
+
+}
+
+.draggable {
+  font-size: 12.5px;
+  width: 100px;
+  height: 70px;
+  background-color: yellow;
+  margin: 5px auto;
+  line-height: 5em;
+}
