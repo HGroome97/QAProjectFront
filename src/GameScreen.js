@@ -15,14 +15,14 @@ class GameScreen extends Component {
   }
 
   setTitle = () => {
-    axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
       document.getElementById("titleHeader").innerHTML = response.data[0].saveName;
     });
   }
 
   populateDropdown = () =>{
     document.getElementById("loadSheet").options.length = 0;
-    axios.get("http://localhost:8081/TraineeApp/api/teamsheet/getAllTeamsheets").then((response) => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/teamsheet/getAllTeamsheets").then((response) => {
         for(var i = 0; i<response.data.length; i++){
           var option = document.createElement("option");
           option.id = "teamsheet"+response.data[i].teamsheetId;

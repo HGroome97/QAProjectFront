@@ -7,6 +7,7 @@ import TransferTable from './TransferTable.js'
 import PlayerTable from './PlayerTable.js'
 import HomePage from './HomePage.js'
 import GameScreen from './GameScreen.js'
+
 function PageRouting() {
   return (
     <Router>
@@ -36,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <HomePage/>
+        <HomePage ip = "35.189.64.188:8081"/>
       </div>
     );
   }
@@ -46,7 +47,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <GameScreen/>
+      <GameScreen ip = "35.189.64.188:8081"/>
       </div>
     );
   }
@@ -56,7 +57,7 @@ class TeamSelectorPage extends Component {
   render() {
     return (
       <div className="App">
-      <TeamSelector/>
+      <TeamSelector ip = "35.189.64.188:8081"/>
       </div>
     );
   }
@@ -67,7 +68,7 @@ class PlayerTablePage extends Component {
   render() {
     return (
       <div className="App">
-        <PlayerTable/>
+        <PlayerTable ip = "35.189.64.188:8081"/>
       </div>
     );
   }
@@ -77,7 +78,7 @@ class TransferTablePage extends Component {
   render() {
     return (
       <div className="App">
-        <TransferTable/>
+        <TransferTable ip = "35.189.64.188:8081"/>
       </div>
     );
   }

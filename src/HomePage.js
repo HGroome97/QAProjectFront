@@ -10,7 +10,7 @@ class HomePage extends Component {
   }
 
   changeName = () => {
-    axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
       console.log(response.data[0]);
       var updatedGameInfo = {
         gameId: response.data[0].gameId,
@@ -20,7 +20,7 @@ class HomePage extends Component {
         lastAwayScore: response.data[0].lastAwayScore,
       }
       console.log(updatedGameInfo);
-      axios.put("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
+      axios.put("http://"+this.props.ip+"/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
         console.log(response.data);
       });
     });

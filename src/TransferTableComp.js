@@ -12,7 +12,7 @@ export default class TransferTableComp extends Component {
 
   buyPlayer = (rowNum) =>{
     var playerPrice;
-    axios.get("http://localhost:8081/TraineeApp/api/player/getPlayer/"+rowNum).then((response) => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/player/getPlayer/"+rowNum).then((response) => {
       var updatedPlayer = {
           playerId: response.data.playerId,
           fName:response.data.fName,
@@ -23,7 +23,7 @@ export default class TransferTableComp extends Component {
       };
       playerPrice = response.data.price;
       console.log(updatedPlayer);
-      axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+      axios.get("http://"+this.props.ip+"/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
         if(response.data[0].money-playerPrice>=0){
           var updatedGameInfo = {
             gameId: response.data[0].gameId,
@@ -33,8 +33,8 @@ export default class TransferTableComp extends Component {
             lastAwayScore: response.data[0].lastAwayScore,
 
           }
-          axios.put("http://localhost:8081/TraineeApp/api/player/updatePlayer", updatedPlayer).then((response) => {
-            axios.put("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
+          axios.put("http://"+this.props.ip+"/TraineeApp/api/player/updatePlayer", updatedPlayer).then((response) => {
+            axios.put("http://"+this.props.ip+"/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
               console.log(response.data);
               window.location.reload();
             });
@@ -57,7 +57,7 @@ export default class TransferTableComp extends Component {
   render() {
     return (
       <div>
-      <AddPlayerForm className = "playerForm"/>
+      <AddPlayerForm ip = {this.props.ip} className = "playerForm"/>
       <BootstrapTable data ={this.props.data} className="table table-striped" search>
         <TableHeaderColumn dataField = 'id' isKey>id</TableHeaderColumn>
         <TableHeaderColumn dataField = 'name'>Name</TableHeaderColumn>

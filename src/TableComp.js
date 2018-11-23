@@ -12,14 +12,14 @@ export default class TableComp extends Component {
 
   deletePlayer = (rowNum) =>{
     console.log(rowNum);
-    axios.get("http://localhost:8081/TraineeApp/api/teamsheet_player/getAllTeamsheet_PlayersWithPlayerId/"+rowNum).then((response) => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/teamsheet_player/getAllTeamsheet_PlayersWithPlayerId/"+rowNum).then((response) => {
       console.log(response.data);
       for(var i = 0; i < response.data.length; i++){
-        axios.delete("http://localhost:8081/TraineeApp/api/teamsheet_player/deleteTeamsheet_Player/"+response.data[i].teamsheetPlayerId).then((res) => {
+        axios.delete("http://"+this.props.ip+"/TraineeApp/api/teamsheet_player/deleteTeamsheet_Player/"+response.data[i].teamsheetPlayerId).then((res) => {
            console.log(res.data);
          });
       }
-      axios.delete("http://localhost:8081/TraineeApp/api/player/deletePlayer/"+rowNum).then((res) => {
+      axios.delete("http://"+this.props.ip+"/TraineeApp/api/player/deletePlayer/"+rowNum).then((res) => {
          console.log(res.data);
          window.location.reload();
       });
@@ -39,7 +39,7 @@ export default class TableComp extends Component {
   render() {
     return (
       <div>
-      <AddPlayerForm className = "playerForm"/>
+      <AddPlayerForm ip = {this.props.ip} className = "playerForm"/>
       <BootstrapTable data ={this.props.data} className="table table-striped" search>
         <TableHeaderColumn dataField = 'id' isKey>id</TableHeaderColumn>
         <TableHeaderColumn dataField = 'name'>Name</TableHeaderColumn>

@@ -23,7 +23,7 @@ export default class PlayerTable extends Component {
     var players = this.state.players;
     var playerArray = [];
     var playerList;
-    axios.get("http://localhost:8081/TraineeApp/api/player/getAllPlayersWithTeamName/myTeam").then((response) => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/player/getAllPlayersWithTeamName/myTeam").then((response) => {
       playerList = response.data;
         for(var i = 0; i<response.data.length; i++){
           var person = {
@@ -45,7 +45,7 @@ export default class PlayerTable extends Component {
   render() {
     return (
       <div>
-      <TableComp data = {this.state.players}/>
+      <TableComp ip = {this.props.ip} data = {this.state.players}/>
       </div>
     )
   }

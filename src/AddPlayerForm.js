@@ -16,7 +16,7 @@ export default class AddPlayerForm extends Component {
       price: document.getElementById("priceInput").value,
       team: document.getElementById("teamInput").value
     }
-    axios.post("http://localhost:8081/TraineeApp/api/player/createPlayer", data).then((res) => {
+    axios.post("http://"+this.props.ip+"/TraineeApp/api/player/createPlayer", data).then((res) => {
        console.log(res.data);
     });
   }

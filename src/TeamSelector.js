@@ -21,7 +21,7 @@ export default class TeamSelector extends Component {
       var players = this.state.players;
       var playerArray = [];
       var playerList;
-      axios.get("http://localhost:8081/TraineeApp/api/player/getAllPlayersWithTeamName/myTeam").then((response) => {
+      axios.get("http://"+this.props.ip+"/TraineeApp/api/player/getAllPlayersWithTeamName/myTeam").then((response) => {
         playerList = response.data;
           for(var i = 0; i<response.data.length; i++){
             var person = {
@@ -54,14 +54,14 @@ export default class TeamSelector extends Component {
     }
 
     setTitle = () => {
-      axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+      axios.get("http://"+this.props.ip+"/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
         document.getElementById("titleHeader").innerHTML = response.data[0].saveName;
       });
     }
 
     populateDropdown = () =>{
       document.getElementById("loadSheet").options.length = 0;
-      axios.get("http://localhost:8081/TraineeApp/api/teamsheet/getAllTeamsheets").then((response) => {
+      axios.get("http://"+this.props.ip+"/TraineeApp/api/teamsheet/getAllTeamsheets").then((response) => {
           for(var i = 0; i<response.data.length; i++){
             var option = document.createElement("option");
             option.id = "teamsheet"+response.data[i].teamsheetId;
@@ -145,10 +145,11 @@ export default class TeamSelector extends Component {
        });
     }
 
-    saveChanges = () =>{
+    saveChanges = (ip) =>{
+      console.log(ip);
       var saveName = document.getElementById("saveName").value;
 
-      axios.get("http://localhost:8081/TraineeApp/api/teamsheet/searchTeamsheet/"+saveName).then((response) => {
+      axios.get("http://"+ip+"/TraineeApp/api/teamsheet/searchTeamsheet/"+saveName).then((response) => {
         if(response.data.length==0){
           var data = {
             "saveName": document.getElementById("saveName").value,
@@ -168,10 +169,10 @@ export default class TeamSelector extends Component {
                }
             });
           }
-          axios.post("http://localhost:8081/TraineeApp/api/teamsheet/createTeamsheet", data).then(function (res) {
+          axios.post("http://"+ip+"/TraineeApp/api/teamsheet/createTeamsheet", data).then(function (res) {
                       console.log(res.data);
                       document.getElementById("loadSheet").options.length = 0;
-                      axios.get("http://localhost:8081/TraineeApp/api/teamsheet/getAllTeamsheets").then((response) => {
+                      axios.get("http://"+ip+"/TraineeApp/api/teamsheet/getAllTeamsheets").then((response) => {
                           for(var i = 0; i<response.data.length; i++){
                             var option = document.createElement("option");
                             option.id = "teamsheet"+response.data[i].teamsheetId;
@@ -191,7 +192,7 @@ export default class TeamSelector extends Component {
                               "playerId": playersAr[i].id,
                               "posNo": posAr[i]
                             };
-                            axios.post("http://localhost:8081/TraineeApp/api/teamsheet_player/createTeamsheet_Player", data).then(function (res) {
+                            axios.post("http://"+ip+"/TraineeApp/api/teamsheet_player/createTeamsheet_Player", data).then(function (res) {
                               console.log(res.data);
                             });
                           }
@@ -199,13 +200,14 @@ export default class TeamSelector extends Component {
 
         });
         }else{
-          {this.updateSheet(response.data)}
+          console.log(this.props.ip);
+          {this.updateSheet(response.data, this.props.ip)}
         }
       });
 
     }
 
-    updateSheet = (data) => {
+    updateSheet = (data, ip) => {
       var teamsheetId = data[0].teamsheetId;
       var data = {
         "teamsheetId" :teamsheetId,
@@ -226,18 +228,16 @@ export default class TeamSelector extends Component {
            }
         });
       }
-      axios.put("http://localhost:8081/TraineeApp/api/teamsheet/updateTeamsheet", data).then(function (res) {
+      console.log(ip);
+      axios.put("http://"+ip+"/TraineeApp/api/teamsheet/updateTeamsheet", data).then(function (res) {
         console.log(res.data);
-        console.log(playersAr);
-        console.log(posAr);
-
         for(var i = 0; i<playersAr.length; i++){
           var data = {
             "teamsheetId": teamsheetId,
             "playerId": playersAr[i].id,
             "posNo": posAr[i]
           };
-          axios.post("http://localhost:8081/TraineeApp/api/teamsheet_player/createTeamsheet_Player", data).then(function (res) {
+          axios.post("http://"+ip+"/TraineeApp/api/teamsheet_player/createTeamsheet_Player", data).then(function (res) {
             console.log(res.data);
           });
         }
@@ -249,7 +249,7 @@ export default class TeamSelector extends Component {
       var fullId = options[options.selectedIndex].id;
       var selectedId = fullId.substring(9,fullId.length);
       var teamsheet = [];
-      axios.get("http://localhost:8081/TraineeApp/api/teamsheet/getTeamsheet/"+selectedId).then((response) => {
+      axios.get("http://"+this.props.ip+"/TraineeApp/api/teamsheet/getTeamsheet/"+selectedId).then((response) => {
           document.getElementById("saveName").value = response.data.saveName;
           document.getElementById("defenders").value = response.data.numDefenders;
           document.getElementById("midfielders").value = response.data.numMidfielders;
@@ -269,7 +269,7 @@ export default class TeamSelector extends Component {
           });
 
           var positions = [];
-          axios.get("http://localhost:8081/TraineeApp/api/teamsheet_player/getAllTeamsheet_PlayersWithTeamsheetId/"+selectedId).then((response) => {
+          axios.get("http://"+this.props.ip+"/TraineeApp/api/teamsheet_player/getAllTeamsheet_PlayersWithTeamsheetId/"+selectedId).then((response) => {
             positions = response.data;
             //iterate through positions setting position of relevant player
             console.log(positions);
@@ -295,14 +295,14 @@ export default class TeamSelector extends Component {
       var fullId = options[options.selectedIndex].id;
       var selectedId = fullId.substring(9,fullId.length);
       console.log(selectedId);
-      axios.get("http://localhost:8081/TraineeApp/api/teamsheet_player/getAllTeamsheet_PlayersWithTeamsheetId/"+selectedId).then((response) => {
+      axios.get("http://"+this.props.ip+"/TraineeApp/api/teamsheet_player/getAllTeamsheet_PlayersWithTeamsheetId/"+selectedId).then((response) => {
         for(var i = 0; i < response.data.length; i++){
           console.log(response.data[i].teamsheetPlayerId);
-          axios.delete("http://localhost:8081/TraineeApp/api/teamsheet_player/deleteTeamsheet_Player/"+response.data[i].teamsheetPlayerId).then((res) => {
+          axios.delete("http://"+this.props.ip+"/TraineeApp/api/teamsheet_player/deleteTeamsheet_Player/"+response.data[i].teamsheetPlayerId).then((res) => {
              console.log(res.data);
            });
         }
-        axios.delete("http://localhost:8081/TraineeApp/api/teamsheet/deleteTeamsheet/"+selectedId).then((res) => {
+        axios.delete("http://"+this.props.ip+"/TraineeApp/api/teamsheet/deleteTeamsheet/"+selectedId).then((res) => {
            console.log(res.data);
            window.location.reload();
         });
@@ -349,7 +349,7 @@ export default class TeamSelector extends Component {
                     <button id = "loadButton" onClick = {this.loadSheet}>Load Teamsheet</button>
                     <button id = "deleteButton" onClick = {this.deleteSheet}>Delete Teamsheet</button>
                     <input id = "saveName" Style = "width: 145px"></input>
-                    <button id = "saveButton" onClick = {this.saveChanges}>Save Teamsheet</button>
+                    <button id = "saveButton" onClick = {() => this.saveChanges(this.props.ip)}>Save Teamsheet</button>
                   </div>
                 </div>
 
