@@ -47,26 +47,48 @@ class GameScreen extends Component {
       document.getElementById("homeTeam").innerHTML = opponentTeam;
       document.getElementById("awayTeam").innerHTML = document.getElementById("titleHeader").innerHTML;
     }
-    document.getElementById("homeScore").innerHTML = Math.floor(Math.random() * 5)+" : ";
-    document.getElementById("awayScore").innerHTML = Math.floor(Math.random() * 5);
+    document.getElementById("homeScore").innerHTML = " "+Math.floor(Math.random() * 5)+" : ";
+    document.getElementById("awayScore").innerHTML = Math.floor(Math.random() * 5)+" ";
+
+    var moneyGained = Math.floor(Math.random() * 20);
+    document.getElementById("moneyLabel").innerHTML = "Money gained from game: "+moneyGained;
+
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+        var updatedGameInfo = {
+          gameId: response.data[0].gameId,
+          saveName: response.data[0].saveName,
+          money: response.data[0].money+moneyGained,
+          lastHomeScore: response.data[0].lastHomeScore,
+          lastAwayScore: response.data[0].lastAwayScore,
+
+        }
+        axios.put("http://"+this.props.ip+"/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
+            console.log(response.data);
+        });
+    });
+
   }
 
   render() {
     return (
       <div>
         <h2 id = "titleHeader"></h2>
-        <form>
+        <div>
           <select id ="loadSheet"/>
           <button id = "playGame" onClick = {() => this.playGame()}>Play against random opponent</button>
-        </form>
+        </div>
 
-        <form>
+        <div>
           <label id = "homeTeam"/>
           <label id = "homeScore"/>
 
             <label id = "awayScore"/>
             <label id = "awayTeam"/>
-          </form>
+          </div>
+
+          <div>
+            <label id = "moneyLabel"/>
+          </div>
       </div>
     );
   }

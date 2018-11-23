@@ -17,7 +17,16 @@ export default class TransferTable extends Component {
 
   componentDidMount() {
     {this.populatePlayers()}
+
+    {this.setTitle()}
   }
+
+  setTitle = () => {
+    axios.get("http://"+this.props.ip+"/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+      document.getElementById("money").innerHTML = "Total Budget: £"+response.data[0].money;
+    });
+  }
+
 
   populatePlayers = () => {
     var players = this.state.players;
@@ -46,6 +55,7 @@ export default class TransferTable extends Component {
   render() {
     return (
       <div>
+      <label id = "money"/>
       <TransferTableComp ip = {this.props.ip} data = {this.state.players}/>
       </div>
     )
