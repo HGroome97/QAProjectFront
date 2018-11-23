@@ -22,6 +22,7 @@ class HomePage extends Component {
       console.log(updatedGameInfo);
       axios.put("http://"+this.props.ip+"/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
         console.log(response.data);
+        document.getElementById("teamnameInput").value="";
       });
     });
   }
@@ -30,11 +31,11 @@ class HomePage extends Component {
     return (
       <div>
       <h1>Home Page</h1>
-      <form>
+      <div>
         <label>Change Team Name: </label>
         <input id = "teamnameInput" placeholder = "Enter Team Name"/>
         <button id = "addMoneyBtn" onClick = {() => this.changeName()}>Submit</button>
-      </form>
+      </div>
       </div>
     );
   }
