@@ -49,6 +49,14 @@ export default class TeamSelector extends Component {
       {this.populateDropdown()}
 
       {this.populatePlayers()}
+
+      {this.setTitle()}
+    }
+
+    setTitle = () => {
+      axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+        document.getElementById("titleHeader").innerHTML = response.data[0].saveName;
+      });
     }
 
     populateDropdown = () =>{
@@ -326,7 +334,7 @@ export default class TeamSelector extends Component {
         console.log(pos);
         return (
             <div className="container-drag">
-                <h2 className="header">Team Selector</h2>
+                <h2 id = "titleHeader" className="header">Team Selector</h2>
 
                 <div className = "formation-container">
                   < span className="task-header">Formation Selector</span>

@@ -12,9 +12,7 @@ export default class TransferTableComp extends Component {
 
   buyPlayer = (rowNum) =>{
     var playerPrice;
-    console.log(rowNum);
     axios.get("http://localhost:8081/TraineeApp/api/player/getPlayer/"+rowNum).then((response) => {
-      console.log(response.data);
       var updatedPlayer = {
           playerId: response.data.playerId,
           fName:response.data.fName,
@@ -25,21 +23,26 @@ export default class TransferTableComp extends Component {
       };
       playerPrice = response.data.price;
       console.log(updatedPlayer);
-      axios.put("http://localhost:8081/TraineeApp/api/player/updatePlayer", updatedPlayer).then((response) => {
-        console.log(response.data);
-        axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
-          console.log(response.data[0]);
+      axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+        if(response.data[0].money-playerPrice>=0){
           var updatedGameInfo = {
             gameId: response.data[0].gameId,
             saveName: response.data[0].saveName,
-            money: response.data[0].money-playerPrice
+            money: response.data[0].money-playerPrice,
+            lastHomeScore: response.data[0].lastHomeScore,
+            lastAwayScore: response.data[0].lastAwayScore,
+
           }
-          console.log(updatedGameInfo);
-          axios.put("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
-            console.log(response.data);
-            window.location.reload();
+          axios.put("http://localhost:8081/TraineeApp/api/player/updatePlayer", updatedPlayer).then((response) => {
+            axios.put("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
+              console.log(response.data);
+              window.location.reload();
+            });
           });
-        });
+        }else{
+          alert("Not Enough Money")
+        }
+
       });
     });
 

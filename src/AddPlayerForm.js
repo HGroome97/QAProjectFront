@@ -28,8 +28,8 @@ export default class AddPlayerForm extends Component {
         <label>Add Player: </label>
         <input id = "firstNameInput" placeholder = "Enter First Name"/>
         <input id = "secondNameInput" placeholder = "Enter Second Name"/>
-        <input id = "ratingInput" placeholder = "Enter Player Rating"/>
-        <input id = "priceInput" placeholder = "Enter Player Price"/>
+        <input id = "ratingInput" type = "number" placeholder = "Enter Player Rating"/>
+        <input id = "priceInput" type = "number" placeholder = "Enter Player Price"/>
         <input id = "teamInput" placeholder = "Enter Team"/>
         <button id = "addPlayerBtn" onClick = {() => this.addPlayer()}>Submit</button>
       </form>

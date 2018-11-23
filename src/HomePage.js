@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const axios = require("axios");
 
 class HomePage extends Component {
   constructor(props){
@@ -8,12 +9,32 @@ class HomePage extends Component {
 
   }
 
+  changeName = () => {
+    axios.get("http://localhost:8081/TraineeApp/api/gameinfo/getAllGameInfo").then((response) => {
+      console.log(response.data[0]);
+      var updatedGameInfo = {
+        gameId: response.data[0].gameId,
+        saveName: document.getElementById("teamnameInput").value,
+        money: response.data[0].money,
+        lastHomeScore: response.data[0].lastHomeScore,
+        lastAwayScore: response.data[0].lastAwayScore,
+      }
+      console.log(updatedGameInfo);
+      axios.put("http://localhost:8081/TraineeApp/api/gameinfo/updateGameInfo", updatedGameInfo).then((response) => {
+        console.log(response.data);
+      });
+    });
+  }
+
   render() {
     return (
       <div>
-      <h1>HomePage</h1>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/-AbaV3nrw6E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/s7wmiS2mSXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h1>Home Page</h1>
+      <form>
+        <label>Change Team Name: </label>
+        <input id = "teamnameInput" placeholder = "Enter Team Name"/>
+        <button id = "addMoneyBtn" onClick = {() => this.changeName()}>Submit</button>
+      </form>
       </div>
     );
   }
