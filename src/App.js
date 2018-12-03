@@ -37,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <HomePage ip = "35.189.64.188:8081"/>
+        <HomePage ip = "localhost:8081"/>
       </div>
     );
   }
@@ -47,7 +47,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <GameScreen ip = "35.189.64.188:8081"/>
+      <GameScreen ip = "localhost:8081"/>
       </div>
     );
   }
@@ -57,7 +57,7 @@ class TeamSelectorPage extends Component {
   render() {
     return (
       <div className="App">
-      <TeamSelector ip = "35.189.64.188:8081"/>
+      <TeamSelector ip = "localhost:8081"/>
       </div>
     );
   }
@@ -68,7 +68,7 @@ class PlayerTablePage extends Component {
   render() {
     return (
       <div className="App">
-        <PlayerTable ip = "35.189.64.188:8081"/>
+        <PlayerTable ip = "localhost:8081"/>
       </div>
     );
   }
@@ -78,7 +78,7 @@ class TransferTablePage extends Component {
   render() {
     return (
       <div className="App">
-        <TransferTable ip = "35.189.64.188:8081"/>
+        <TransferTable ip = "localhost:8081"/>
       </div>
     );
   }
